@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Climate Change News{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+{% comment %}    <style>
+        .tag {
+            display: inline-block;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            cursor: default; /* optional */
+        }
+    </style>{% endcomment %}
+</head>
+<body>
+<header>
+    {% block header %}
+        <nav>
+        Climate Change News
+
+{% comment %}            <ul>
+                <li><a href="{% url 'home' %}">News</a></li>
+                <li><a href="{% url 'about' %}">Facts</a></li>
+                <li><a href="{% url 'about' %}">Actions</a></li>
+            </ul>{% endcomment %}
+
+        </nav>
+    {% endblock %}
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+Read the following article:
+
+Valuable supplies of phosphorus could be recovered from sewage sludge ash, which remains after the sludge has been burned for electric power generation. The method has been developed by chemical engineers Yuuki Mochizuki and Naoto Tsubouchi at Hokkaido University's Center for Advanced Research of Energy and Materials. Their work is published in the journal Resources, Conservation and Recycling.
+Phosphorus-containing compounds are widely manufactured for applications including fertilizers, medicines and many everyday consumer products. At present, supplies of phosphorus are mainly extracted from phosphorus ores. In recent years, however, the depletion and rising price of high-grade phosphorus ores have become a problem, putting pressure on industries that rely on these supplies.
+"Exploiting new phosphorus resources to replace the fast-depleting reserves, and establishing methods to recover phosphorus from waste streams, is becoming increasingly important," says Tsubouchi.
+Sewage sludge, available in plentiful amounts, is currently burned in large quantities for power generation and also to reduce its volume. The remaining ash is relatively rich in phosphorus, leading to increasing efforts to find efficient ways to recover the phosphorus. Existing methods encounter several significant problems, however, including chemical contamination requiring further purification and complicated expensive chemical processing.
+The Hokkaido researchers have previously investigated methods for recovering phosphorus and other elements, including calcium, magnesium and iron by heat treatment of sewage sludge. These previous investigations suggested that the process of volatilization, in which different elements are selectively converted into gaseous forms, allowing them to be separated from the rest of the treated ash, could be a promising approach for recovering phosphorus in the form of heat-stable compounds.
+They therefore explored the volatilization behavior of the different elements in sewage sludge ash under different chemical conditions, especially with and without carbon being added during a sludge treatment process involving chlorine. This allowed them to develop an effective method for separating useful phosphorus-containing compounds using a combination of chlorination steps with and without the presence of carbon.
+Mochizuki elaborates, "The method we developed can be implemented with lower energy requirements, lower CO2 emissions, and lower cost than conventional phosphorus recovery technologies from phosphate ores. In our method, phosphorus is recovered in the valuable phosphorus chloride forms, which can also be converted to phosphoric acid by dissolution in water."
+"In Japan, the total amount of phosphorus contained in secondary phosphorus resources such as steel slag, livestock manure, and sewage sludge is equivalent to about half of the total amount of phosphorus brought into the country. Our next step is to study if our technique could be used to reduce the need for phosphorus imports," Tsubouchi concludes.
+
+
+End of article.
+
+Answer the following questions.
+Paragraph two: Is this article related with climate change? Start the answer with 'Yes' or 'No'"
+Paragraph three: Does this article help to mitigate climate change ? Start the answer with 'Yes' or 'No'"
+Paragraph four: Does this article describe damage created by climate change ? Start the answer with 'Yes' or 'No'"
+question five: Tell me 5 tags that describes the article, only the tags separated by comma.
+question six: Is this article specific to a country or region in the world ? If Yes, just say the location.
+
+---
+Response Example
+Here are the answers to your questions:
+Paragraph two: Yes, this article is related to climate change as it discusses a more sustainable way to recover phosphorus, which can help reduce carbon emissions.
+Paragraph three: Yes, this article helps to mitigate climate change by presenting a method that requires lower energy and lower CO2 emissions than conventional phosphorus recovery technologies.
+Paragraph four: No, this article does not describe damage created by climate change, but rather presents a solution to mitigate its effects.
+question five: phosphorus, sustainability, climate change, recycling, innovation
+question six: Japan

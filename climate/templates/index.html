@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Climate Change News{% endblock %}
+{% comment %}
+{% block header %}
+    {{ block.super }} <!-- inherits the header from base.html -->
+    <h1>Welcome to my home page</h1>
+{% endblock %}
+{% endcomment %}
+
+{% block content %}
+    {% comment %}<ul>{% endcomment %}
+        {% for n in news %}
+            {% comment %}<li>{% endcomment %}
+            <article>
+                <b><a href="{% url 'go' news_id=n.id %}">{{ n.title }}</a></b>
+                {% comment %}<p>{{ n.summary }}</p>{% endcomment %}
+                <p>
+                    <small><small>
+                        {{ n.created |date:"Y-m-d" }} |
+                     {% comment %}<span class="tag">{{ n.location }}</span> |{% endcomment %}
+                        {{ n.location }} |
+                    {% comment %}{%  for tag in n.tags %} <span class="tag">{{ tag }}</span>{% endfor %}{% endcomment %}
+                        {%  for tag in n.tags %}
+                            {{ tag }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                        | {{ n.hits }} pts
+{% comment %}                    <br>
+                    300 pts{% endcomment %}
+                    </small></small>
+                </p>
+            {% comment %}</li>{% endcomment %}
+            </article>
+        {% endfor %}
+    {% comment %}</ul>{% endcomment %}
+
+    {% if news.has_next %}
+        <a href="?p={{ news.next_page_number }}">next page &gt;</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,4 @@
+*.pyc
+climate.iml
+venv
+.idea
