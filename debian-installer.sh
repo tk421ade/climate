@@ -56,5 +56,66 @@ SocketUser=www-data
 WantedBy=sockets.target
 EOF
 
+# test that gunicorn over socket is working
+# sudo -u www-data curl --unix-socket /run/gunicorn.sock http
+
+# configure nginx
+cat > /etc/nginx/sites-available/climate << 'EOF'
+  upstream app_server {
+    # fail_timeout=0 means we always retry an upstream even if it failed
+    # to return a good HTTP response
+
+    # for UNIX domain socket setups
+    server unix:/run/gunicorn.sock fail_timeout=0;
+
+  }
+
+  #server {
+  #  # if no Host match, close the connection to prevent host spoofing
+  #  listen 80 default_server;
+  #  return 444;
+  #}
+
+  server {
+    # use 'listen 80 deferred;' for Linux
+    # use 'listen 80 accept_filter=httpready;' for FreeBSD
+    #listen 80;
+    listen 80 default_server;
+    client_max_body_size 4G;
+
+    # set the correct host(s) for your site
+    #server_name example.com www.example.com;
+
+    keepalive_timeout 5;
+
+    # path for static files
+    root /path/to/app/current/public;
+
+    location / {
+      # checks for static file, if not found proxy to app
+      try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header Host $http_host;
+      # we don't want nginx trying to do something clever with
+      # redirects, we set the Host: header above already.
+      proxy_redirect off;
+      proxy_pass http://app_server;
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+      root /path/to/app/current/public;
+    }
+  }
+EOF
+
+rm -f /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/climate /etc/nginx/sites-enabled/climate
+
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+
