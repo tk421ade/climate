@@ -15,3 +15,9 @@ prepare:clean
 test:prepare
 	venv/bin/pip3 install mock nose
 	venv/bin/python3 setup.py nosetests
+
+migrate:
+	venv/bin/python3 manage.py migrate
+
+update:
+	venv/bin/python3 climate/climate/botrss.py

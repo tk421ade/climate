@@ -119,3 +119,22 @@ ln -s /etc/nginx/sites-available/climate /etc/nginx/sites-enabled/climate
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
+# install database
+apt-get install postgresql -y
+su - postgres -c "createdb climate"
+
+cat > /etc/postgresql/15/main/pg_hba.conf << 'EOF'
+local   all             postgres                                peer
+local   all             all                                     peer
+host    all             all             127.0.0.1/32            trust
+host    all             all             ::1/128                 scram-sha-256
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256
+EOF
+
+systemctl restart postgresql
+cd /opt/climate
+make migrate
+
+
