@@ -56,6 +56,9 @@ SocketUser=www-data
 WantedBy=sockets.target
 EOF
 
+systemctl enable gunicorn.service
+systemctl start gunicorn.service
+
 # test that gunicorn over socket is working
 # sudo -u www-data curl --unix-socket /run/gunicorn.sock http
 
@@ -116,6 +119,9 @@ EOF
 rm -f /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/climate /etc/nginx/sites-enabled/climate
 
+systemctl enable nginx.service
+systemctl start nginx.service
+
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 /sbin/iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 
@@ -137,4 +143,19 @@ systemctl restart postgresql
 cd /opt/climate
 make migrate
 
-
+# install SSL
+# apt-get install certbot python3-certbot-nginx -y
+# certbot certonly --nginx
+#
+# Renew
+# certbot renew --dry-run
+#
+# nginx redirect to https
+# server {
+#    listen 80 default_server;
+#
+#    server_name _;
+#
+#    return 301 https://$host$request_uri;
+#}
+#

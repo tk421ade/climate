@@ -10,6 +10,19 @@ import pprint, objprint
 import time, json
 
 
+CLIMATEBOT_SECRET_TOKEN = os.environ.get('CLIMATEBOT_SECRET_TOKEN')
+
+if CLIMATEBOT_SECRET_TOKEN is None:
+    print("Error, you need to generate a valid token")
+    print("venv/bin/python3 manage.py shell")
+    print("from rest_framework.authtoken.models import Token")
+    print("from django.contrib.auth.models import User")
+    print("user = User.objects.get(username='ClimateBot')")
+    print("token = Token.objects.create(user=user)")
+    print("print(token.key)")
+
+EF_API_SERVER = os.environ.get('EF_API_SERVER') or "http://localhost:8000"
+
 class NewsClient:
     title = ""
     summary = ""
@@ -112,9 +125,10 @@ def _is_within_hours(time_to_compare, hours: int):
 
 
 def save(news: NewsClient):
-    url = "http://localhost:8000/api/v1/news/"
+    url = f"{EF_API_SERVER}/api/v1/news/"
     headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': f'Token {CLIMATEBOT_SECRET_TOKEN}'
     }
     response = requests.post(url, data=json.dumps(news.tojson()), headers=headers)
     if response.status_code == 201:
@@ -193,7 +207,6 @@ def _proces_rss_feed(url):
             # objprint.op(new_news)
             print(new_news.tojson())
             print("//------END------")
-            exit(1)
     return total_news
 
 
