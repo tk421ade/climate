@@ -17,6 +17,7 @@ test:prepare
 	venv/bin/python3 setup.py nosetests
 
 migrate:
+	venv/bin/python3 manage.py makemigrations
 	venv/bin/python3 manage.py migrate
 
 update:

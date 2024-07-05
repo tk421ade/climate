@@ -30,3 +30,6 @@ feedparser
 psycopg2-binary
 gunicorn
 djangorestframework
+pprintpp
+objprint
+nose

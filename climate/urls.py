@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('go/<int:news_id>/', views.go, name='go'),
+    path('api/v1/news/', views.NewsView.as_view()),
 ]

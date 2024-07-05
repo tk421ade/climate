@@ -28,7 +28,7 @@ class News(models.Model):
     ai_questions_response = models.TextField(null=True, blank=True)
     tags = ArrayField(models.TextField(), size=5, null=True, blank=True)
     properties = ArrayField(models.TextField(), null=True, blank=True)
-    location = models.TextField(null=True, blank=True)
+    location = ArrayField(models.TextField(), null=True, blank=True)
     created = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     published_at = models.DateTimeField(null=True, blank=True)
