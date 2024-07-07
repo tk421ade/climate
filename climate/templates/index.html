@@ -13,19 +13,15 @@
             {% comment %}<li>{% endcomment %}
             <article>
                 <b><a href="{% url 'go' news_id=n.id %}">{{ n.title }}</a></b>
-                {% comment %}<p>{{ n.summary }}</p>{% endcomment %}
                 <p>
                     <small><small>
-                        {{ n.created |date:"Y-m-d" }} |
-                     {% comment %}<span class="tag">{{ n.location }}</span> |{% endcomment %}
-                        {{ n.location }} |
-                    {% comment %}{%  for tag in n.tags %} <span class="tag">{{ tag }}</span>{% endfor %}{% endcomment %}
                         {%  for tag in n.tags %}
                             {{ tag }}{% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                        | {{ n.hits }} pts
-{% comment %}                    <br>
-                    300 pts{% endcomment %}
+                        {% endfor %}<br>
+                        {%  for l in n.location  %}
+                            {{ l }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}<br>
+                        {{ n.created |date:"Y-m-d" }} | {{ n.hits }} pts<br>
                     </small></small>
                 </p>
             {% comment %}</li>{% endcomment %}
