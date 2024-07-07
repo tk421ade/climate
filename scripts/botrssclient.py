@@ -9,7 +9,6 @@ from meta_ai_api import MetaAI
 import pprint, objprint
 import time, json
 
-
 CLIMATEBOT_SECRET_TOKEN = os.environ.get('CLIMATEBOT_SECRET_TOKEN')
 
 if CLIMATEBOT_SECRET_TOKEN is None:
@@ -22,6 +21,7 @@ if CLIMATEBOT_SECRET_TOKEN is None:
     print("print(token.key)")
 
 EF_API_SERVER = os.environ.get('EF_API_SERVER') or "http://localhost:8000"
+
 
 class NewsClient:
     title = ""
@@ -137,9 +137,23 @@ def save(news: NewsClient):
         print('Error adding news:', response.text)
 
 
+def find_news(url: str):
+    url = f"{EF_API_SERVER}/api/v1/news/?url={url}"
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Token {CLIMATEBOT_SECRET_TOKEN}'
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        logging.debug(f"Find news response: f{response.json()}")
+        return response.json()
+    else:
+        logging.error('Error searching for news: ', response.text)
+
+
 def _proces_rss_feed(url):
     # user = User.objects.get(username="ClimateBot")
-    user = 1 # ClimateBot
+    user = 1  # ClimateBot
     feed = feedparser.parse(url)
     total_news = []
     ai = MetaAI()
@@ -149,10 +163,12 @@ def _proces_rss_feed(url):
         new_news = NewsClient(url=entry.link, created_by=user, title=entry.title,
                               published_at=time.strftime('%Y-%m-%dT%H:%M:%S', entry.published_parsed),
                               status="DRAFT")
-        if False:  # News.objects.filter(url=new_news.url).exists(): TODO IMPLEMENT
-            logging.warning("Url %s already exists" % rss_url)
+
+        existing_news = find_news(url=new_news.url)
+        if len(existing_news) > 0:
+            logging.warning("Url %s already exists" % new_news.url)
         else:
-            logging.warning("New news found: %s" % rss_url)
+            logging.warning("New news found: %s" % new_news.url)
             if not _is_within_hours(entry.published_parsed, 48):
                 logging.warning("Url %s published at %s is older than 48 hours" % (new_news.url, new_news.published_at))
                 continue

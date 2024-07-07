@@ -34,7 +34,8 @@ class NewsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        news = News.objects.all()
+        url = request.query_params.get('url', None)
+        news = News.objects.filter(url=url)
         serializer = NewsSerializer(news, many=True)
         return Response(serializer.data)
 

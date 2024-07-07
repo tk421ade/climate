@@ -21,6 +21,7 @@ After=network.target
 
 [Service]
 Type=notify
+Environment="DJANGO_SECRET_KEY=yekq9_@huylo_2zhryv62h*@+rws+w*&j@7r)n!8%fl+wfwpvi"
 # the specific user that our service will run as
 User=www-data
 Group=www-data
