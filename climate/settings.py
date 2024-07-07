@@ -29,7 +29,12 @@ else:
     SECRET_KEY = 'django-insecure-ltc+hr@wc*_%jx@lhf!@+9j55uon5^(_0h4r5i2r4*y=zpe^z3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DJANGO_DEBUG = os.environ.get('DJANGO_DEBUG')
+
+if DJANGO_DEBUG:
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
